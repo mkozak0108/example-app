@@ -1,23 +1,15 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import {
   Switch,
-  Route,
-  useHistory
+  Route
 } from 'react-router-dom';
-import { ApolloProvider, useQuery } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 
 import { Home, Login, Logout } from './pages'
 import { apolloClient } from './services';
-import { GET_USER_ID } from './queries';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
-  const { data: { userID } } = useQuery(GET_USER_ID, { client: apolloClient });
-  const history = useHistory();
-
-  useEffect(() => {
-    history.replace(userID ? '/' : '/login');
-  }, [userID, history]);
-
   return (
     <ApolloProvider client={apolloClient}>
       <Switch>
@@ -27,9 +19,9 @@ function App() {
         <Route path="/logout">
           <Logout/>
         </Route>
-        <Route path="/">
+        <PrivateRoute exact path="/">
           <Home/>
-        </Route>
+        </PrivateRoute>
       </Switch>
     </ApolloProvider>
   );
