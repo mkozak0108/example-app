@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import {
+  Switch,
+  Route,
+  useHistory
+} from 'react-router-dom';
+import { ApolloProvider, useQuery } from '@apollo/client';
+
+import { Home, Login, Logout } from './pages'
+import { apolloClient } from './services';
+import { GET_USER_ID } from './queries';
 
 function App() {
+  const { data: { userID } } = useQuery(GET_USER_ID, { client: apolloClient });
+  const history = useHistory();
+
+  useEffect(() => {
+    history.replace(userID ? '/' : '/login');
+  }, [userID, history]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={apolloClient}>
+      <Switch>
+        <Route path="/login">
+          <Login/>
+        </Route>
+        <Route path="/logout">
+          <Logout/>
+        </Route>
+        <Route path="/">
+          <Home/>
+        </Route>
+      </Switch>
+    </ApolloProvider>
   );
 }
 

@@ -1,0 +1,1 @@
+export const BACKEND_URL = 'https://cms.trial-task.k8s.ext.fcse.io/graphql';
