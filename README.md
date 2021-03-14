@@ -1,6 +1,6 @@
 # Example Login App
 ## Hosting
-https://mkozak0108.github.io/example-app/
+https://example-app-881a9.web.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
