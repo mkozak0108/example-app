@@ -3,7 +3,11 @@ import { Typography, Card, CardContent, CircularProgress } from '@material-ui/co
 
 function UserCard({ user, loading }) {
   if (loading) {
-    return <CircularProgress/>
+    return <CircularProgress className="user-card-loader"/>
+  }
+
+  if (!user) {
+    return null;
   }
 
   const fullName = [user.firstName, user.lastName].join(' ');
