@@ -27,7 +27,7 @@ function Login() {
     if (userID) {
       history.replace('/');
     }
-  }, [userID]);
+  }, [userID, history]);
 
   return (
     <Grid className="login-page-container" container direction="row" justify="center" alignItems="center">
